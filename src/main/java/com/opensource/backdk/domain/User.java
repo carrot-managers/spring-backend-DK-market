@@ -1,11 +1,13 @@
 package com.opensource.backdk.domain;
 
 import com.opensource.backdk.dto.SignupUserDto;
+import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+@Getter
 @Entity
 public class User {
     @Id
