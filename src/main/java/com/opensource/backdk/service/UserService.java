@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -34,5 +35,12 @@ public class UserService {
         session.setAttribute("user", user);
 
         return user;
+    }
+
+    @Transactional
+    public Long logout(User user, HttpServletRequest request) {
+        HttpSession session =request.getSession();
+        session.invalidate();
+        return user.getId();
     }
 }

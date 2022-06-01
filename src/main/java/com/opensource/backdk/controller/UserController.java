@@ -6,6 +6,7 @@ import com.opensource.backdk.dto.SignupUserDto;
 import com.opensource.backdk.repository.UserRepository;
 import com.opensource.backdk.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,11 @@ public class UserController {
     @PostMapping("/user/signin")
     public User signIn(@RequestBody SigninUserDto dto, HttpServletRequest request) {
         return userService.signin(dto, request);
+    }
+
+    @PostMapping("/user/logout")
+    public Long logout(@ModelAttribute("user") User user, HttpServletRequest request) {
+        return userService.logout(user, request);
     }
 
 }
