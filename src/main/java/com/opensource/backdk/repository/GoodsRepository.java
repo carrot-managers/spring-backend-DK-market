@@ -1,4 +1,7 @@
 package com.opensource.backdk.repository;
 
-public class GoodsRepository {
+import com.opensource.backdk.domain.Goods;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GoodsRepository extends JpaRepository<Goods, Long> {
 }
