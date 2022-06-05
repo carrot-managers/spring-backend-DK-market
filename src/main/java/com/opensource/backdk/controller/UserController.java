@@ -36,4 +36,5 @@ public class UserController {
     public User getCurrentUser(HttpServletRequest request) {
         return userService.getCurrentUser(request);
     }
+
 }
