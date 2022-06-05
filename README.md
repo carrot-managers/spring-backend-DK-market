@@ -16,6 +16,8 @@ User
 로그아웃 | POST | user/logout | Long
 현재 로그인한 유저 | GET | user/current | User
 
+<br><br><br><br>
+
 Goods
 
 기능 | Method | Url | Return
