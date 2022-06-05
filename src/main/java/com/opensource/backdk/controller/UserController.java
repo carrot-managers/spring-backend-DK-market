@@ -6,10 +6,7 @@ import com.opensource.backdk.dto.SignupUserDto;
 import com.opensource.backdk.repository.UserRepository;
 import com.opensource.backdk.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,6 +30,11 @@ public class UserController {
     @PostMapping("/user/logout")
     public Long logout(@ModelAttribute("user") User user, HttpServletRequest request) {
         return userService.logout(user, request);
+    }
+
+    @GetMapping("/user/current")
+    public User getCurrentUser(HttpServletRequest request) {
+        return userService.getCurrentUser(request);
     }
 
 }

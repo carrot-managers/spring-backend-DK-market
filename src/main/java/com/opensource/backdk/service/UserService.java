@@ -43,4 +43,9 @@ public class UserService {
         session.invalidate();
         return user.getId();
     }
+
+    public User getCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return (User) session.getAttribute("user");
+    }
 }

@@ -14,3 +14,4 @@ User
 회원가입 | POST | user/signup | User
 로그인 | POST | user/signin | User
 로그아웃 | POST | user/logout | Long
+현재 로그인한 유저 | GET | user/current | User
