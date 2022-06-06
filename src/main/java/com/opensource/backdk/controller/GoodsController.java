@@ -1,7 +1,7 @@
 package com.opensource.backdk.controller;
 
 import com.opensource.backdk.domain.Goods;
-import com.opensource.backdk.domain.User;
+import com.opensource.backdk.domain.Users;
 import com.opensource.backdk.dto.CreateGoodsDto;
 import com.opensource.backdk.dto.EditGoodsDto;
 import com.opensource.backdk.service.GoodsService;
@@ -31,22 +31,22 @@ public class GoodsController {
 
     @PostMapping("/goods/create")
     public Long createGoods(@RequestBody CreateGoodsDto dto, HttpServletRequest request) {
-        User user = userService.getCurrentUser(request);
-        return goodsService.create(user.getId(), dto);
+        Users user = userService.getCurrentUser(request);
+        return goodsService.create(user.getUserId(), dto);
     }
 
     @PutMapping("/goods/{id}/edit")
     public void editGoods(@PathVariable Long id, @RequestBody EditGoodsDto dto,
                           HttpServletRequest request) throws IllegalAccessException {
-        User user = userService.getCurrentUser(request);
-        goodsService.edit(id, dto, user.getId());
+        Users user = userService.getCurrentUser(request);
+        goodsService.edit(id, dto, user.getUserId());
     }
 
     @DeleteMapping("/goods/{id}/remove")
     public void removeGoods(@PathVariable Long id, HttpServletRequest request)
             throws IllegalAccessException {
-        User user = userService.getCurrentUser(request);
-        goodsService.remove(id, user.getId());
+        Users user = userService.getCurrentUser(request);
+        goodsService.remove(id, user.getUserId());
     }
 
 

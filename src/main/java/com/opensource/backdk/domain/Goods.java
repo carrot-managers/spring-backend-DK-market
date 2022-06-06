@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Entity
 public class Goods {
 
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @Column(name = "goods_id", nullable = false)
-    private Long id;
+    private Long goodsId;
 
     @Column(nullable = false)
     private Long price;
@@ -30,16 +30,16 @@ public class Goods {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
-    private User user;
+    private Users user;
 
     private LocalDateTime registeredDate;
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
         user.getGoodsList().add(this);
     }
 
-    public static Goods goods(User user, CreateGoodsDto dto) {
+    public static Goods goods(Users user, CreateGoodsDto dto) {
         Goods goods = new Goods();
         goods.setUser(user);
         goods.setStatus(GoodsStatus.SALE);

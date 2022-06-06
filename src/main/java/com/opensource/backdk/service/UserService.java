@@ -17,11 +17,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @Transactional
     public Users signup(SignupUserDto dto) {
         Users user = new Users(dto);
         return userRepository.save(user);
     }
 
+    @Transactional
     public Users signin(SigninUserDto dto, HttpServletRequest request) {
         Users user = userRepository.findByUserId(dto.getUserId()).orElseThrow(
                 () -> new NullPointerException("아이디가 존재하지 않습니다.")

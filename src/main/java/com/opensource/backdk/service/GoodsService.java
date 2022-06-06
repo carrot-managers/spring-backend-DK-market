@@ -1,7 +1,7 @@
 package com.opensource.backdk.service;
 
 import com.opensource.backdk.domain.Goods;
-import com.opensource.backdk.domain.User;
+import com.opensource.backdk.domain.Users;
 import com.opensource.backdk.dto.CreateGoodsDto;
 import com.opensource.backdk.dto.EditGoodsDto;
 import com.opensource.backdk.repository.GoodsRepository;
@@ -25,7 +25,7 @@ public class GoodsService {
         return goodsRepository.findAll();
     }
 
-    public Goods findOneGoods(@PathVariable Long id ){
+    public Goods findOneGoods(@PathVariable Long id){
         Goods goods = goodsRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 상품입니다."));
 
@@ -33,23 +33,23 @@ public class GoodsService {
     }
 
     @Transactional
-    public Long create(Long userId, CreateGoodsDto dto) {
-        User user = userRepository.findById(userId).orElseThrow(
+    public Long create(String userId, CreateGoodsDto dto) {
+        Users user = userRepository.findByUserId(userId).orElseThrow(
                 () -> new NullPointerException("아이디가 존재하지 않습니다."));
 
         Goods goods = Goods.goods(user, dto);
 
         goodsRepository.save(goods);
 
-        return goods.getId();
+        return goods.getGoodsId();
     }
 
     @Transactional
-    public void remove(Long goodsId, Long userId) throws IllegalAccessException {
+    public void remove(Long goodsId, String userId) throws IllegalAccessException {
         Goods goods = goodsRepository.findById(goodsId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 상품입니다.")
         );
-        if (goods.getUser().getId() == userId) {
+        if (goods.getUser().getUserId().equals(userId)) {
             goodsRepository.delete(goods);
         }else{
             throw new IllegalAccessException("권한이 없습니다.");
@@ -57,10 +57,10 @@ public class GoodsService {
     }
 
     @Transactional
-    public void edit(Long goodsId, EditGoodsDto dto, Long userId) throws IllegalAccessException {
+    public void edit(Long goodsId, EditGoodsDto dto, String userId) throws IllegalAccessException {
         Goods goods = goodsRepository.findById(goodsId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 상품입니다."));
-        if (goods.getUser().getId() == userId) {
+        if (goods.getUser().getId().equals(userId)) {
             Goods.resetGoods(goods, dto);
         }else{
             throw new IllegalAccessException("권한이 없습니다.");
