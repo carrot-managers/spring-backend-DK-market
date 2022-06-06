@@ -3,14 +3,15 @@ package com.opensource.backdk.domain;
 import com.opensource.backdk.dto.CreateGoodsDto;
 import com.opensource.backdk.dto.EditGoodsDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter @Setter
+@NoArgsConstructor
 @Entity
-public class Goods {
+public class Goods extends Timestamped {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -28,32 +29,31 @@ public class Goods {
     @Column(nullable = false)
     private String contents;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private Users user;
+    @Column(nullable = false)
+    private String authorId;
 
-    private LocalDateTime registeredDate;
-
-    public void setUser(Users user) {
-        this.user = user;
-        user.getGoodsList().add(this);
+    public Goods(CreateGoodsDto dto, String userId) {
+        this.price = dto.getPrice();
+        this.status = GoodsStatus.SALE;
+        this.title = dto.getTitle();
+        this.contents = dto.getContents();
+        this.authorId = userId;
     }
 
-    public static Goods goods(Users user, CreateGoodsDto dto) {
-        Goods goods = new Goods();
-        goods.setUser(user);
-        goods.setStatus(GoodsStatus.SALE);
-        goods.setRegisteredDate(LocalDateTime.now());
-        goods.setContents(dto.getContents());
-        goods.setPrice(dto.getPrice());
-        goods.setTitle(dto.getTitle());
-
-        return goods;
+    public Goods resetGoods(EditGoodsDto dto){
+        this.price = dto.getPrice();
+//        this.status = dto.getStatus();
+        this.title = dto.getTitle();
+        this.contents = dto.getContents();
+        return this;
     }
-    public static void resetGoods(Goods goods, EditGoodsDto dto){
-        goods.setTitle(dto.getTitle());
-        goods.setContents(dto.getContents());
-        goods.setPrice(dto.getPrice());
-        goods.setStatus(dto.getStatus());
+
+    public Goods toggleStatus() {
+        if (this.status == GoodsStatus.SALE) {
+            this.status = GoodsStatus.SOLD_OUT;
+        } else {
+            this.status = GoodsStatus.SALE;
+        }
+        return this;
     }
 }

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,22 +31,36 @@ public class GoodsController {
     }
 
     @PostMapping("/goods/create")
-    public Long createGoods(@RequestBody CreateGoodsDto dto, HttpServletRequest request) {
-        Users user = userService.getCurrentUser(request);
+    public Goods createGoods(@RequestBody CreateGoodsDto dto, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
+
         return goodsService.create(user.getUserId(), dto);
     }
 
-    @PutMapping("/goods/{id}/edit")
-    public void editGoods(@PathVariable Long id, @RequestBody EditGoodsDto dto,
+    @PutMapping("/goods/{goodsId}/edit")
+    public Goods editGoods(@PathVariable Long goodsId, @RequestBody EditGoodsDto dto,
                           HttpServletRequest request) throws IllegalAccessException {
-        Users user = userService.getCurrentUser(request);
-        goodsService.edit(id, dto, user.getUserId());
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
+
+        return goodsService.edit(goodsId, dto, user.getUserId());
+    }
+
+    @PutMapping("/goods/{id}/edit/status")
+    public Goods toggleStatus(@PathVariable Long id, HttpServletRequest request) throws IllegalAccessException {
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
+
+        return goodsService.toggleStatus(id, user.getUserId());
     }
 
     @DeleteMapping("/goods/{id}/remove")
     public void removeGoods(@PathVariable Long id, HttpServletRequest request)
             throws IllegalAccessException {
-        Users user = userService.getCurrentUser(request);
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
+
         goodsService.remove(id, user.getUserId());
     }
 

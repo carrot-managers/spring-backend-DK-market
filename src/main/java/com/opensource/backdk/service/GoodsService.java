@@ -28,20 +28,42 @@ public class GoodsService {
     public Goods findOneGoods(@PathVariable Long id){
         Goods goods = goodsRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 상품입니다."));
-
         return goods;
     }
 
     @Transactional
-    public Long create(String userId, CreateGoodsDto dto) {
+    public Goods create(String userId, CreateGoodsDto dto) {
         Users user = userRepository.findByUserId(userId).orElseThrow(
                 () -> new NullPointerException("아이디가 존재하지 않습니다."));
 
-        Goods goods = Goods.goods(user, dto);
+        Goods goods = new Goods(dto, user.getUserId());
+        return goodsRepository.save(goods);
+    }
 
-        goodsRepository.save(goods);
+    @Transactional
+    public Goods edit(Long goodsId, EditGoodsDto dto, String userId) throws IllegalAccessException {
+        Goods goods = goodsRepository.findById(goodsId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 상품입니다.")
+        );
 
-        return goods.getGoodsId();
+        if (goods.getAuthorId().equals(userId)) {
+            return goods.resetGoods(dto);
+        } else {
+            throw new IllegalAccessException("권한이 없습니다.");
+        }
+    }
+
+    @Transactional
+    public Goods toggleStatus(Long goodsId, String userId) throws IllegalAccessException {
+        Goods goods = goodsRepository.findById(goodsId).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 상품입니다.")
+        );
+
+        if (goods.getAuthorId().equals(userId)) {
+            return goods.toggleStatus();
+        }else{
+            throw new IllegalAccessException("권한이 없습니다.");
+        }
     }
 
     @Transactional
@@ -49,21 +71,11 @@ public class GoodsService {
         Goods goods = goodsRepository.findById(goodsId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 상품입니다.")
         );
-        if (goods.getUser().getUserId().equals(userId)) {
+        if (goods.getAuthorId().equals(userId)) {
             goodsRepository.delete(goods);
         }else{
             throw new IllegalAccessException("권한이 없습니다.");
         }
     }
 
-    @Transactional
-    public void edit(Long goodsId, EditGoodsDto dto, String userId) throws IllegalAccessException {
-        Goods goods = goodsRepository.findById(goodsId).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 상품입니다."));
-        if (goods.getUser().getId().equals(userId)) {
-            Goods.resetGoods(goods, dto);
-        }else{
-            throw new IllegalAccessException("권한이 없습니다.");
-        }
-    }
 }

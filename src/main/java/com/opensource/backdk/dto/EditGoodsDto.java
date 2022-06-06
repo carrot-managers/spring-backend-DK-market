@@ -8,5 +8,5 @@ public class EditGoodsDto {
     private String title;
     private String contents;
     private Long price;
-    private GoodsStatus status;
+//    private GoodsStatus status;
 }

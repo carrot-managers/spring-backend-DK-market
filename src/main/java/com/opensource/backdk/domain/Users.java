@@ -35,9 +35,6 @@ public class Users {
     @Column(nullable = false)
     private String phone;
 
-    @OneToMany(mappedBy = "user")
-    private List<Goods> goodsList = new ArrayList<>();
-
     @OneToMany
     private List<WatchGoods> watchList = new ArrayList<>();
 
@@ -47,5 +44,10 @@ public class Users {
         this.email = dto.getEmail();
         this.name = dto.getName();
         this.phone = dto.getPhone();
+    }
+
+    public void addWathchGoods(Goods goods) {
+        WatchGoods watchGoods = new WatchGoods(this, goods);
+        this.watchList.add(watchGoods);
     }
 }
