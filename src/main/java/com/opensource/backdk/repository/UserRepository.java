@@ -1,7 +1,10 @@
 package com.opensource.backdk.repository;
 
-import com.opensource.backdk.domain.User;
+import com.opensource.backdk.domain.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<Users, Long> {
+    Optional<Users> findByUserId(String userId) ;
 }

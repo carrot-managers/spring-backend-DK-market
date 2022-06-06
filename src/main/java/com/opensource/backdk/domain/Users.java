@@ -2,20 +2,26 @@ package com.opensource.backdk.domain;
 
 import com.opensource.backdk.dto.SignupUserDto;
 import lombok.Getter;
-
+import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
 
 @Getter
+@NoArgsConstructor
 @Entity
-public class User {
+public class Users {
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(nullable = false)
+    private String userId;
 
     @Column(nullable = false)
     private String password;
@@ -32,8 +38,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Goods> goodsList = new ArrayList<>();
 
-    public User(SignupUserDto dto) {
-        this.id = dto.getId();
+    public Users(SignupUserDto dto) {
+        this.userId = dto.getUserId();
         this.password = dto.getPassword();
         this.email = dto.getEmail();
         this.name = dto.getName();

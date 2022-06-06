@@ -1,6 +1,6 @@
 package com.opensource.backdk.controller;
 
-import com.opensource.backdk.domain.User;
+import com.opensource.backdk.domain.Users;
 import com.opensource.backdk.dto.SigninUserDto;
 import com.opensource.backdk.dto.SignupUserDto;
 import com.opensource.backdk.repository.UserRepository;
@@ -18,22 +18,22 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/user/signup")
-    public User signUp(@RequestBody SignupUserDto dto) {
+    public Users signUp(@RequestBody SignupUserDto dto) {
         return userService.signup(dto);
     }
 
     @PostMapping("/user/signin")
-    public User signIn(@RequestBody SigninUserDto dto, HttpServletRequest request) {
+    public Users signIn(@RequestBody SigninUserDto dto, HttpServletRequest request) {
         return userService.signin(dto, request);
     }
 
     @PostMapping("/user/logout")
-    public Long logout(@ModelAttribute("user") User user, HttpServletRequest request) {
+    public String logout(@ModelAttribute("user") Users user, HttpServletRequest request) {
         return userService.logout(user, request);
     }
 
     @GetMapping("/user/current")
-    public User getCurrentUser(HttpServletRequest request) {
+    public Users getCurrentUser(HttpServletRequest request) {
         return userService.getCurrentUser(request);
     }
 
