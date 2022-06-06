@@ -2,17 +2,21 @@ package com.opensource.backdk.domain;
 
 import com.opensource.backdk.dto.SignupUserDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
+@NoArgsConstructor
 @Entity
-public class User {
+public class Users {
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(nullable = false)
+    private String userId;
 
     @Column(nullable = false)
     private String password;
@@ -26,8 +30,8 @@ public class User {
     @Column(nullable = false)
     private String phone;
 
-    public User(SignupUserDto dto) {
-        this.id = dto.getId();
+    public Users(SignupUserDto dto) {
+        this.userId = dto.getUserId();
         this.password = dto.getPassword();
         this.email = dto.getEmail();
         this.name = dto.getName();

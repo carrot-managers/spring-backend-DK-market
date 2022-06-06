@@ -1,6 +1,6 @@
 package com.opensource.backdk.service;
 
-import com.opensource.backdk.domain.User;
+import com.opensource.backdk.domain.Users;
 import com.opensource.backdk.dto.SigninUserDto;
 import com.opensource.backdk.dto.SignupUserDto;
 import com.opensource.backdk.repository.UserRepository;
@@ -17,13 +17,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User signup(SignupUserDto dto) {
-        User user = new User(dto);
+    public Users signup(SignupUserDto dto) {
+        Users user = new Users(dto);
         return userRepository.save(user);
     }
 
-    public User signin(SigninUserDto dto, HttpServletRequest request) {
-        User user = userRepository.findById(dto.getId()).orElseThrow(
+    public Users signin(SigninUserDto dto, HttpServletRequest request) {
+        Users user = userRepository.findByUserId(dto.getUserId()).orElseThrow(
                 () -> new NullPointerException("아이디가 존재하지 않습니다.")
         );
 
@@ -38,14 +38,14 @@ public class UserService {
     }
 
     @Transactional
-    public Long logout(User user, HttpServletRequest request) {
+    public String logout(Users user, HttpServletRequest request) {
         HttpSession session =request.getSession();
         session.invalidate();
-        return user.getId();
+        return user.getUserId();
     }
 
-    public User getCurrentUser(HttpServletRequest request) {
+    public Users getCurrentUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        return (User) session.getAttribute("user");
+        return (Users) session.getAttribute("user");
     }
 }
