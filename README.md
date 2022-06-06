@@ -20,21 +20,21 @@ Users
 
 Goods
 
-기능 | Method | Url | Return
-:--: | :--: | :--: | :--:
-전체 상품 조회 | GET | /goodsList | List<Goods>
-특정 상품 조회 | GET | /goods/{goodsId} | Goods
-(로그인한 채로) 상품 등록 | POST | /goods/create | Goods
-(로그인한 채로) 상품 정보 수정 | PUT | /goods/{goodsId}/edit | Goods
-(로그인한 채로) 상품 판매 여부 수정 | PUT | /goods/{goodsId}/edit/status | Goods
-(로그인한 채로) 상품 삭제 | DELETE | /goods/{goodsId}/remove | -
+사전 로그인 필요 여부 | 기능 | Method | Url | Return
+:--: | :--: | :--: | :--: | :--:
+X | 전체 상품 조회 | GET | /goodsList | List<Goods>
+X | 특정 상품 조회 | GET | /goods/{goodsId} | Goods
+O | 상품 등록 | POST | /goods/create | Goods
+O | 상품 정보 수정 | PUT | /goods/{goodsId}/edit | Goods
+O | 상품 판매 여부 수정 | PUT | /goods/{goodsId}/edit/status | Goods
+O | 상품 삭제 | DELETE | /goods/{goodsId}/remove | -
 
 <br><br>
 
 WatchList
 
-기능 | Method | Url | Return
-:--: | :--: | :--: | :--:
-(로그인한 채로) 관심상품 등록 | POST | /watch/lists/{goodsId} | Goods
-(로그인한 채로) 관심상품 전체 출력 | GET | /watch/lists | List<Goods>
+사전 로그인 필요 여부 | 기능 | Method | Url | Return
+:--: | :--: | :--: | :--: | :--:
+O | 관심상품 등록 | POST | /watch/lists/{goodsId} | Goods
+O | 관심상품 전체 출력 | GET | /watch/lists | List<Goods>
 
