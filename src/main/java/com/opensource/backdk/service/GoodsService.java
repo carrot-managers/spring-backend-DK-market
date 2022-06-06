@@ -25,8 +25,8 @@ public class GoodsService {
         return goodsRepository.findAll();
     }
 
-    public Goods findOneGoods(@PathVariable Long id){
-        Goods goods = goodsRepository.findById(id).orElseThrow(
+    public Goods findOneGoods(@PathVariable Long goodsId){
+        Goods goods = goodsRepository.findById(goodsId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 상품입니다."));
         return goods;
     }

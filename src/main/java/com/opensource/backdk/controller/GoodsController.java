@@ -25,9 +25,9 @@ public class GoodsController {
         return goodsService.findAllGoods();
     }
 
-    @GetMapping("/goods/{id}")
-    public Goods getGoodsDetail(@PathVariable Long id ){
-        return goodsService.findOneGoods(id);
+    @GetMapping("/goods/{goodsId}")
+    public Goods getGoodsDetail(@PathVariable Long goodsId ){
+        return goodsService.findOneGoods(goodsId);
     }
 
     @PostMapping("/goods/create")
@@ -47,21 +47,21 @@ public class GoodsController {
         return goodsService.edit(goodsId, dto, user.getUserId());
     }
 
-    @PutMapping("/goods/{id}/edit/status")
-    public Goods toggleStatus(@PathVariable Long id, HttpServletRequest request) throws IllegalAccessException {
+    @PutMapping("/goods/{goodsId}/edit/status")
+    public Goods toggleStatus(@PathVariable Long goodsId, HttpServletRequest request) throws IllegalAccessException {
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
 
-        return goodsService.toggleStatus(id, user.getUserId());
+        return goodsService.toggleStatus(goodsId, user.getUserId());
     }
 
-    @DeleteMapping("/goods/{id}/remove")
-    public void removeGoods(@PathVariable Long id, HttpServletRequest request)
+    @DeleteMapping("/goods/{goodsId}/remove")
+    public void removeGoods(@PathVariable Long goodsId, HttpServletRequest request)
             throws IllegalAccessException {
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
 
-        goodsService.remove(id, user.getUserId());
+        goodsService.remove(goodsId, user.getUserId());
     }
 
 
