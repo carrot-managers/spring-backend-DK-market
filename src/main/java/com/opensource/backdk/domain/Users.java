@@ -38,6 +38,9 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private List<Goods> goodsList = new ArrayList<>();
 
+    @OneToMany
+    private List<WatchGoods> watchList = new ArrayList<>();
+
     public Users(SignupUserDto dto) {
         this.userId = dto.getUserId();
         this.password = dto.getPassword();
