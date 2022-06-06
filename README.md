@@ -15,3 +15,16 @@ User
 로그인 | POST | user/signin | User
 로그아웃 | POST | user/logout | Long
 현재 로그인한 유저 | GET | user/current | User
+
+<br><br><br><br>
+
+Goods
+
+기능 | Method | Url | Return
+:--: | :--: | :--: | :--:
+전체 상품 조회 | GET | goodsList/ | List<Goods>
+특정 상품 조회 | GET | goods/{id}/ | Goods
+상품 등록 | POST | goods/create | Long
+상품 수정 | PUT | goods/{id}/edit/ | -
+상품 삭제 | DELETE | goods/{id}/remove | -
+
