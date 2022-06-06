@@ -7,7 +7,7 @@ Spring, React 사용 당근마켓 클론코딩
 
 # API 설계
 
-Users
+Users 회원정보 테이블
 
 기능 | Method | Url | Return
 :--: | :--: | :--: | :--:
@@ -18,7 +18,7 @@ Users
 
 <br><br>
 
-Goods
+Goods 상품목록 테이블
 
 사전 로그인 필요 여부 | 기능 | Method | Url | Return
 :--: | :--: | :--: | :--: | :--:
@@ -31,7 +31,7 @@ O | 상품 삭제 | DELETE | /goods/{goodsId}/remove | -
 
 <br><br>
 
-WatchList
+WatchList (유저별) 관심상품목록 테이블
 
 사전 로그인 필요 여부 | 기능 | Method | Url | Return
 :--: | :--: | :--: | :--: | :--:
