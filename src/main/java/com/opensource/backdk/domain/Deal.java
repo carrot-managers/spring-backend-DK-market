@@ -1,7 +1,13 @@
 package com.opensource.backdk.domain;
 
+import com.opensource.backdk.dto.DealRequestDto;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Getter
+@NoArgsConstructor
 @Entity
 public class Deal {
 
@@ -9,15 +15,21 @@ public class Deal {
     @Id
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "USER_ID", nullable = false)
-    private Users seller;
+    @Column(nullable = false)
+    private String buyerId;
 
-    @ManyToOne
-    @JoinColumn(name = "USER_ID", nullable = false)
-    private Users buyer;
+    @Column(nullable = false)
+    private Long goodsId;
 
-    @OneToOne
-    @JoinColumn(name = "GOODS_ID", nullable = false)
-    private Goods goodsId;
+    public Deal(DealRequestDto dto) {
+        this.buyerId = dto.getBuyerId();
+        this.goodsId = dto.getGoodsId();
+    }
+
+    public Deal update(DealRequestDto dto) {
+        this.buyerId = dto.getBuyerId();
+        this.goodsId = dto.getGoodsId();
+        return this;
+    }
+
 }
