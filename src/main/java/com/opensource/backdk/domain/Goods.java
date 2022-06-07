@@ -1,5 +1,6 @@
 package com.opensource.backdk.domain;
 
+import com.opensource.backdk.dto.AddCommentDto;
 import com.opensource.backdk.dto.CreateGoodsDto;
 import com.opensource.backdk.dto.EditGoodsDto;
 import lombok.Getter;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -32,6 +35,9 @@ public class Goods extends Timestamped {
     @Column(nullable = false)
     private String authorId;
 
+    @OneToMany(mappedBy = "goods")
+    private List<Comment> comments = new ArrayList<>();
+
     public Goods(CreateGoodsDto dto, String userId) {
         this.price = dto.getPrice();
         this.status = GoodsStatus.SALE;
@@ -55,5 +61,9 @@ public class Goods extends Timestamped {
             this.status = GoodsStatus.SALE;
         }
         return this;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
 }

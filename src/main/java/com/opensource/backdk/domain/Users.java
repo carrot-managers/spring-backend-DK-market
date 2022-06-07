@@ -46,7 +46,7 @@ public class Users {
         this.phone = dto.getPhone();
     }
 
-    public void addWathchGoods(Goods goods) {
+    public void addWatchGoods(Goods goods) {
         WatchGoods watchGoods = new WatchGoods(this, goods);
         this.watchList.add(watchGoods);
     }

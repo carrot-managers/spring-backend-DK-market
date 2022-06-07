@@ -48,3 +48,14 @@ Deal (유저간) 거래목록 테이블
 거래 목록 전체 출력 | GET | /deal | List<Deal>
 하나의 거래 출력 | GET | /deal/{dealId} | Deal
 거래 삭제 | DELETE | /deal/{dealId} | -
+
+<br><br>
+
+Comment (상품별) 댓글목록 테이블
+
+사전 로그인 필요 여부 | 기능 | Method | Url | Return
+:--: | :--: | :--: | :--: | :--:
+O | 댓글 등록 | POST | /goods/{goodsId}/addComment | Comment
+O | 댓글 삭제 | DELETE | /goods/{goodsId}/{commentId}/removeComment | -
+
+

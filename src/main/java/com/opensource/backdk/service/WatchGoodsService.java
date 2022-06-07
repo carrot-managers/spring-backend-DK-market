@@ -24,7 +24,7 @@ public class WatchGoodsService {
         );
 
         WatchGoods watchGoods = new WatchGoods(user, goods);
-        user.addWathchGoods(goods);
+        user.addWatchGoods(goods);
         watchGoodsRepository.save(watchGoods);
         return goods;
     }
