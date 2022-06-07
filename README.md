@@ -38,3 +38,13 @@ WatchList (유저별) 관심상품목록 테이블
 O | 관심상품 등록 | POST | /watch/lists/{goodsId} | Goods
 O | 관심상품 전체 출력 | GET | /watch/lists | List<Goods>
 
+<br><br>
+
+Deal (유저간) 거래목록 테이블
+
+기능 | Method | Url | Return
+:--: | :--: | :--: | :--:
+거래 생성 | POST | /deal/create | Deal
+거래 목록 전체 출력 | GET | /deal | List<Deal>
+하나의 거래 출력 | GET | /deal/{dealId} | Deal
+거래 삭제 | DELETE | /deal/{dealId} | -
